@@ -1,8 +1,9 @@
 # ------------------------- IMPORTS ------------------------- #
 
-import requests
-from datetime import datetime
 import os
+from datetime import datetime
+
+import requests
 
 # ------------------------ CONSTANTS ------------------------ #
 
@@ -15,8 +16,25 @@ GENDER = "MALE"
 WEIGHT_KG = 54
 HEIGHT_CM = 167
 AGE = 13
+
 DATE = datetime.now().strftime("%m/%d/%Y")
-TIME = datetime.now().strftime("%I:%M %p")
+HOUR_NOW = int(datetime.now().strftime("%H"))
+AM_PM = "PM"
+
+if HOUR_NOW < 5:
+    HOUR_NOW = (HOUR_NOW + 12) - 5
+elif HOUR_NOW == 5:
+    HOUR_NOW = 12
+    AM_PM = "AM"
+else:
+    HOUR_NOW = HOUR_NOW - 17
+    if HOUR_NOW <= 0:
+        HOUR_NOW += 12
+        if HOUR_NOW != 12:
+            AM_PM = "AM"
+        
+TIME = datetime.now().strftime(f"{HOUR_NOW}:%M {AM_PM}")
+
 
 # -------------------- NUTRITIONIX DATA --------------------- #
 
